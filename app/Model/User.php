@@ -116,14 +116,14 @@ class User extends AppModel {
  */
 	public $belongsTo = array(
 		'BillingAddress' => array(
-			'className' => 'BillingAddress',
+			'className' => 'Address',
 			'foreignKey' => 'billing_address_id',
 			'conditions' => '',
 			'fields' => '',
 			'order' => ''
 		),
 		'ShippingAddress' => array(
-			'className' => 'ShippingAddress',
+			'className' => 'Address',
 			'foreignKey' => 'shipping_address_id',
 			'conditions' => '',
 			'fields' => '',
@@ -151,5 +151,39 @@ class User extends AppModel {
 			'counterQuery' => ''
 		)
 	);
+	
+	public function register($data){
+		if($data['User']['password'] != $data['User']['confirm_password']){
+			$this->invalidate('password', 'Password and Confirmation Password don\'t match.');
+			return false;
+		}
+		$data['User']['password'] = $this->hashPassword($data['User']['password']);
+		return $this->save($data);
+	}
+	
+	/**
+	* Find the user by email or username
+	* @param username_or_email
+	* @param password
+	* @return user found, or null
+	*/
+	function findByEmailAndPassword($email, $password){
+		return $this->find('first', array(
+			'conditions' => array(
+				'email' => $email,
+				'password' => $password
+			),
+			'recursive' => -1
+		));
+	}
+	
+	/**
+	* Hash the password.
+	* @param string to hash
+	* @return string hashed password.
+	*/
+	function hashPassword($password){
+		return Security::hash($password, null, true);
+	}
 
 }

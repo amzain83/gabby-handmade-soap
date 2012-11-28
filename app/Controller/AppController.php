@@ -1,35 +1,96 @@
 <?php
-/**
- * Application level Controller
- *
- * This file is application-wide controller file. You can put all
- * application-wide controller-related methods here.
- *
- * PHP 5
- *
- * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
- * Copyright 2005-2012, Cake Software Foundation, Inc. (http://cakefoundation.org)
- *
- * Licensed under The MIT License
- * Redistributions of files must retain the above copyright notice.
- *
- * @copyright     Copyright 2005-2012, Cake Software Foundation, Inc. (http://cakefoundation.org)
- * @link          http://cakephp.org CakePHP(tm) Project
- * @package       app.Controller
- * @since         CakePHP(tm) v 0.2.9
- * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
- */
-
 App::uses('Controller', 'Controller');
-
-/**
- * Application Controller
- *
- * Add your application-wide methods in the class below, your controllers
- * will inherit them.
- *
- * @package       app.Controller
- * @link http://book.cakephp.org/2.0/en/controllers.html#the-app-controller
- */
 class AppController extends Controller {
+	public $components = array(
+		'Session',
+		'Auth' => array(
+      'authorize' => array('Controller'),
+      'loginAction' => array('controller' => 'users', 'action' => 'login'),
+      'allowedActions' => array('search','view','index','get','display'),
+      'logoutRedirect' => array('controller' => 'pages', 'action' => 'home'),
+      'authError' => 'Please Login',
+      'autoRedirect' => false,
+      'authenticate' => array(
+      	'Form' => array(
+      		'fields' => array('username' => 'email')
+      	)
+      )
+    ),
+		'DebugKit.Toolbar',
+	);
+	public $helpers = array(
+		'WebTechNick.Google',
+		'Seo.Seo',
+	);
+	
+	public function beforeFilter(){
+		$this->set('user', $this->Auth->user());
+		return parent::beforeFilter();
+	}
+	
+	/**
+	* Auth authorization function
+	*/
+	public function isAuthorized($user, $request = null) {
+		if (strpos($this->request->action,"admin") !== false){
+			return $this->isAdmin();
+		}
+		return true;
+	}
+	
+	function isAdmin(){
+    return ($this->Auth->user('group') == 'admin'); 
+  }
+  
+  function goodFlash($message){
+    $this->Session->setFlash($message,'goodFlash');
+  }
+  
+  function badFlash($message){
+    $this->Session->setFlash($message,'badFlash');
+  }
+  
+  function infoFlash($message){
+    $this->Session->setFlash($message,'infoFlash');
+  }
+  
+  /**
+  * Create new detector to exclude ipad
+  */
+  function newDetector(){
+  	$this->request->addDetector('phone', array(
+			'env' => 'HTTP_USER_AGENT', 
+			'options' => array(
+				'Android', 'AvantGo', 'BlackBerry', 'DoCoMo', 'Fennec', 'iPod', 'iPhone', 
+				'J2ME', 'MIDP', 'NetFront', 'Nokia', 'Opera Mini', 'Opera Mobi', 'PalmOS', 'PalmSource',
+				'portalmmm', 'Plucker', 'ReqwirelessWeb', 'SonyEricsson', 'Symbian', 'UP\\.Browser',
+				'webOS', 'Windows CE', 'Windows Phone OS', 'Xiino'
+			)
+		));
+		$this->request->addDetector('ipad', array(
+			'env' => 'HTTP_USER_AGENT', 
+			'options' => array(
+				'iPad'
+			)
+		));
+  }
+  /**
+    * Take all the data[search] and puts it into params named
+    */
+  protected function dataToNamed(){
+  	$params = is_array($this->request->params['named']) ? $this->request->params['named'] : array();
+  	$data = isset($this->request->data['Search']) ? $this->request->data['Search'] : array();
+  	$this->request->params['named'] = array_merge($data, $params);
+  }
+  
+  /**
+    * Get's the cart from the session
+    */
+  protected function getCart(){
+    return $this->Session->read("Cart") ? $this->Session->read("Cart") : array();
+  }
+  
+  protected function clearCart(){
+    return $this->Session->write("Cart",null);
+  }
 }
