@@ -8,6 +8,10 @@
 	<?php
 		echo $this->Html->meta('icon');
 		echo $this->Html->css('soap-style');
+		echo $this->Google->load('jquery');
+		echo $this->Google->load('jqueryui');
+		echo $this->Html->css('http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/base/jquery-ui.css');
+		echo $this->Html->css('/bootstrap/css/bootstrap.min.css');
 		echo $this->fetch('meta');
 		echo $this->fetch('css');
 		echo $this->fetch('script');
@@ -21,7 +25,9 @@
 		</div>
 		<div id="main">
 			<div id="content">
-				<?php echo $this->Session->flash(); ?>
+				<div id="flash">
+					<?php echo $this->Session->flash(); ?>
+				</div>
 				<div id="content_for_body">
 					<?php echo $this->fetch('content'); ?>
 				</div>
@@ -36,6 +42,7 @@
 		<div id="footer"></div>
 	</div>
 	
-	<?php echo $this->element('sql_dump'); ?>
+	<?php echo $this->Html->script('/bootstrap/js/bootstrap.min.js'); ?>
+	<?php echo $this->Js->writeBuffer(); ?>
 </body>
 </html>

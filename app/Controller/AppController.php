@@ -17,14 +17,23 @@ class AppController extends Controller {
       )
     ),
 		'DebugKit.Toolbar',
+		'Icing.IcingCart' => array(
+			'model' => 'Item',
+			'contain' => array()
+		)
 	);
 	public $helpers = array(
 		'WebTechNick.Google',
 		'Seo.Seo',
+		'TB' => array(
+			'className' => 'TwitterBootstrap.TwitterBootstrap'
+		),
+		'Js'
 	);
 	
 	public function beforeFilter(){
 		$this->set('user', $this->Auth->user());
+		$this->set('cart', $this->IcingCart->get());
 		return parent::beforeFilter();
 	}
 	
@@ -81,16 +90,5 @@ class AppController extends Controller {
   	$params = is_array($this->request->params['named']) ? $this->request->params['named'] : array();
   	$data = isset($this->request->data['Search']) ? $this->request->data['Search'] : array();
   	$this->request->params['named'] = array_merge($data, $params);
-  }
-  
-  /**
-    * Get's the cart from the session
-    */
-  protected function getCart(){
-    return $this->Session->read("Cart") ? $this->Session->read("Cart") : array();
-  }
-  
-  protected function clearCart(){
-    return $this->Session->write("Cart",null);
   }
 }

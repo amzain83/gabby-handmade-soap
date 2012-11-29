@@ -32,12 +32,10 @@ h1, h2, h3, h4 {
 	margin-bottom:0.5em;
 }
 h1 {
-	background:#fff;
 	color: #003d4c;
-	font-size: 100%;
+	font-size: 200%;
 }
 h2 {
-	background:#fff;
 	color: #e32;
 	font-family:'Gill Sans','lucida grande', helvetica, arial, sans-serif;
 	font-size: 190%;
@@ -95,26 +93,53 @@ p {
 	width: 1053px;
 	background: #fff url('/img/lower_body_full.png') no-repeat right;
 }
+.rounded {
+	border-left: 1px solid #ccc;
+	-moz-border-radius: 4px 0 0 4px;
+	-webkit-border-radius: 4px 0 0 4px;
+	border-radius: 4px 0 0 4px;
+}
 
 /** containers **/
 div.form,
 div.index,
 div.view {
-	float:right;
-	width:76%;
-	border-left:1px solid #666;
+	width:90%;
 	padding:10px 2%;
-}
-div.actions {
-	float:left;
-	width:16%;
-	padding:10px 1.5%;
 }
 div.actions h3 {
 	padding-top:0;
 	color:#777;
 }
+/*********************** FLASHES *******************/
+div#good-flash, div#bad-flash, div#info-flash, div#authMessage,div#site-message{
+  width: 90%;
+  text-align: center;
+  padding: 10px;
+  font-weight: bold;
+  border: 1px solid black;
+  margin: auto;
+  margin-bottom: 15px;
+  cursor: pointer;
+}
 
+div#good-flash{
+  background-color: green;
+  color: black;
+}
+
+div#bad-flash{
+  background-color: maroon;
+  color: white;
+}
+
+div#info-flash, div#authMessage{
+  background-color: blue;
+  color: white;
+}
+input[type=text], input[type=password] {
+	width: 100%;
+}
 
 /** Tables **/
 table {
@@ -174,7 +199,6 @@ table td.actions a {
 
 /** Paging **/
 .paging {
-	background:#fff;
 	color: #ccc;
 	margin-top: 1em;
 	clear:both;
@@ -195,12 +219,14 @@ table td.actions a {
 	background: #efefef;
 }
 .paging .prev {
+	background: #fff;
 	border-left: 1px solid #ccc;
 	-moz-border-radius: 4px 0 0 4px;
 	-webkit-border-radius: 4px 0 0 4px;
 	border-radius: 4px 0 0 4px;
 }
 .paging .next {
+	background: #fff;
 	-moz-border-radius: 0 4px 4px 0;
 	-webkit-border-radius: 0 4px 4px 0;
 	border-radius: 0 4px 4px 0;
@@ -338,6 +364,7 @@ input[type=submit] {
 	display: inline;
 	font-size: 110%;
 	width: auto;
+	cursor: pointer;
 }
 form .submit input[type=submit] {
 	background:#62af56;

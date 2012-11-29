@@ -10,3 +10,6 @@
 [submodule "app/Plugin/Seo"]
 	path = app/Plugin/Seo
 	url = git@github.com:webtechnick/CakePHP-Seo-Plugin.git
+[submodule "app/Plugin/TwitterBootstrap"]
+	path = app/Plugin/TwitterBootstrap
+	url = git://github.com/loadsys/twitter-bootstrap-helper.git

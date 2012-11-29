@@ -38,12 +38,12 @@ class UsersController extends AppController {
   	}
   	$this->request->data = $this->User->find('first', array(
   		'conditions' => array(
-  			'User.id' => $this->Auth->user('id') 
+  			'User.id' => $this->Auth->user('id')
   		),
   		'contain' => array('Order','BillingAddress','ShippingAddress')
   	));
   }
-  
+
   public function register(){
   	if($this->Auth->user()){
   		$this->redirect(array('action' => 'account'));
@@ -96,8 +96,6 @@ class UsersController extends AppController {
 		} elseif($id) {
 			$this->request->data = $this->User->read(null, $id);
 		}
-		$contractors = $this->User->Contractor->find('list');
-		$this->set(compact('contractors'));
 	}
 
 /**

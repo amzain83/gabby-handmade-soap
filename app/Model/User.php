@@ -18,31 +18,27 @@ class User extends AppModel {
 		'email' => array(
 			'email' => array(
 				'rule' => array('email'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
+				'message' => 'Please use a valid email address'
+			),
+			'unique' => array(
+				'rule' => array('isUnique'),
+				'message' => 'Email already taken'
 			),
 		),
 		'password' => array(
 			'notempty' => array(
 				'rule' => array('notempty'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
+				'message' => 'Password is required',
 			),
+			'confirmed' => array(
+		    'rule' => 'confirmPasswordCheck',
+		    'message' => 'Passwords did not match'
+		  ),
 		),
 		'first_name' => array(
 			'notempty' => array(
 				'rule' => array('notempty'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
+				'message' => 'Please enter your first name',
 			),
 		),
 		'last_name' => array(
@@ -151,6 +147,43 @@ class User extends AppModel {
 			'counterQuery' => ''
 		)
 	);
+	
+	/**
+	* To change the password you need the current password
+	* @param array of data
+	*/
+	public function changePassword($data){
+		if(isset($data['User']['current_password']) && isset($data['User']['id'])){
+			if($this->checkPassword($data['User']['id'], $data['User']['current_password'])){
+				unset($data['User']['current_password']);
+				return $this->save($data);
+			}	else {
+				$this->invalidate('current_password', 'Your current password is not correct.');
+			}
+		}
+		return false;
+	}
+	
+	/**
+	  * If confirm_password is set, make sure it matches the passed in password
+	  * or return a validation error
+	  */
+	public function confirmPasswordCheck($check = null){
+	  if(isset($this->data[$this->alias]['confirm_password'])){
+	    if($this->hashPassword($this->data[$this->alias]['confirm_password']) != $this->data[$this->alias]['password']){
+	      return false;
+	    }
+	  }
+	  return true;
+	}
+	
+	public function checkPassword($user_id, $password){
+		$official_pass = $this->field('password', array('User.id' => $user_id));
+		if($official_pass == $this->hashPassword($password)){
+			return true;
+		}
+		return false;
+	}
 	
 	public function register($data){
 		if($data['User']['password'] != $data['User']['confirm_password']){
