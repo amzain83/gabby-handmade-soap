@@ -47,6 +47,24 @@ class TwitterBootstrapHelper extends AppHelper {
 		}
 		return $this->Form->create($model, $options);
 	}
+	
+	/**
+	* Wrapper for Form::end
+	*/
+	public function end($options = array()){
+		return $this->Form->end($options);
+	}
+	
+	/**
+	* Wrapper for Form::postLink
+	*/
+	public function postLink($title, $url = null, $options = array(), $confirm = false){
+		return $this->Form->postLink($title, $url, $options, $confirm);
+	}
+	
+	public function value($options = array(), $field = null, $key = 'value'){
+		return $this->Form->value($options, $field, $key);
+	}
 
 	/**
 	 * basic_input

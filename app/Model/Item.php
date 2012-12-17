@@ -50,51 +50,43 @@ class Item extends AppModel {
 		'item_number' => array(
 			'notempty' => array(
 				'rule' => array('notempty'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
+				'message' => 'Item name required',
 			),
 		),
 		'qty' => array(
 			'numeric' => array(
 				'rule' => array('numeric'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
+				'message' => 'Specify a quantity',
+			),
+		),
+		'price_dollars' => array(
+			'numeric' => array(
+				'rule' => array('numeric'),
+				'message' => 'Please specify the price',
+			),
+		),
+		'cost_dollars' => array(
+			'numeric' => array(
+				'rule' => array('numeric'),
+				'message' => 'Please specify cost',
+			),
+		),
+		'shipping_price_dollars' => array(
+			'numeric' => array(
+				'rule' => array('numeric'),
+				'message' => 'Please specify custom shipping cost',
 			),
 		),
 		'short_description' => array(
 			'notempty' => array(
 				'rule' => array('notempty'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
+				'message' => 'Short description is required, this is the line item text',
 			),
 		),
 		'description' => array(
 			'notempty' => array(
 				'rule' => array('notempty'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
-			),
-		),
-		'cart_count' => array(
-			'numeric' => array(
-				'rule' => array('numeric'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
+				'message' => 'Description of product.',
 			),
 		),
 	);

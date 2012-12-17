@@ -29,6 +29,8 @@
 	Router::connect('/admin',array('admin' => true, 'controller'=>'orders','action'=>'index'));
 	Router::connect('/checkout', array('controller' => 'orders', 'action' => 'edit'));
 	Router::connect('/login', array('controller' => 'users', 'action' => 'login'));
+	Router::connect('/about', array('controller' => 'pages', 'action' => 'about'));
+	Router::connect('/contact', array('controller' => 'pages', 'action' => 'contact'));
   Router::connect('/logout', array('controller' => 'users', 'action' => 'logout'));
   Router::connect('/register', array('controller' => 'users', 'action' => 'register'));
   Router::connect('/account', array('controller' => 'users', 'action' => 'account'));

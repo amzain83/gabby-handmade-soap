@@ -38,39 +38,11 @@ class Category extends AppModel {
 			'className' => 'Item',
 			'foreignKey' => 'category_id',
 			'dependent' => false,
-			'conditions' => '',
-			'fields' => '',
-			'order' => '',
-			'limit' => '',
-			'offset' => '',
-			'exclusive' => '',
-			'finderQuery' => '',
-			'counterQuery' => ''
-		)
-	);
-
-
-/**
- * hasAndBelongsToMany associations
- *
- * @var array
- */
-	public $hasAndBelongsToMany = array(
-		'Sub' => array(
-			'className' => 'Sub',
-			'joinTable' => 'sub_categories',
+		),
+		'SubCategory' => array(
+			'className' => 'SubCategory',
 			'foreignKey' => 'category_id',
-			'associationForeignKey' => 'sub_id',
-			'unique' => 'keepExisting',
-			'conditions' => '',
-			'fields' => '',
-			'order' => '',
-			'limit' => '',
-			'offset' => '',
-			'finderQuery' => '',
-			'deleteQuery' => '',
-			'insertQuery' => ''
+			'dependent' => true,
 		)
 	);
-
 }

@@ -44,4 +44,12 @@ class PagesController extends AppController {
 	public function home(){
 		$this->set('title_for_layout', 'Home');
 	}
+	
+	public function about(){
+		$this->set('title_for_layout', 'About Us');
+	}
+	
+	public function contact(){
+		$this->set('title_for_layout', 'Contact');
+	}
 }

@@ -6,6 +6,8 @@ App::uses('AppController', 'Controller');
  * @property Item $Item
  */
 class ItemsController extends AppController {
+	
+	public $helpers = array('WebTechNick.Ckeditor');
 
 /**
  * index method
@@ -31,26 +33,13 @@ class ItemsController extends AppController {
 		}
 		$this->set('item', $this->Item->read(null, $id));
 	}
-
-/**
- * add method
- *
- * @return void
- */
-	public function add() {
-		if ($this->request->is('post')) {
-			$this->Item->create();
-			if ($this->Item->save($this->request->data)) {
-				$this->Session->setFlash(__('The item has been saved'));
-				$this->redirect(array('action' => 'index'));
-			} else {
-				$this->Session->setFlash(__('The item could not be saved. Please, try again.'));
-			}
-		}
-		$categories = $this->Item->Category->find('list');
-		$subCategories = $this->Item->SubCategory->find('list');
-		$statuses = $this->Item->Status->find('list');
-		$this->set(compact('categories', 'subCategories', 'statuses'));
+	
+	/**
+	* Admin functions
+	*/
+	public function admin_index(){
+		$this->Item->recursive = 0;
+		$this->set('items', $this->paginate());
 	}
 
 /**
@@ -60,11 +49,7 @@ class ItemsController extends AppController {
  * @param string $id
  * @return void
  */
-	public function edit($id = null) {
-		$this->Item->id = $id;
-		if (!$this->Item->exists()) {
-			throw new NotFoundException(__('Invalid item'));
-		}
+	public function admin_edit($id = null) {
 		if ($this->request->is('post') || $this->request->is('put')) {
 			if ($this->Item->save($this->request->data)) {
 				$this->Session->setFlash(__('The item has been saved'));
@@ -72,7 +57,7 @@ class ItemsController extends AppController {
 			} else {
 				$this->Session->setFlash(__('The item could not be saved. Please, try again.'));
 			}
-		} else {
+		} elseif($id) {
 			$this->request->data = $this->Item->read(null, $id);
 		}
 		$categories = $this->Item->Category->find('list');
@@ -89,7 +74,7 @@ class ItemsController extends AppController {
  * @param string $id
  * @return void
  */
-	public function delete($id = null) {
+	public function admin_delete($id = null) {
 		if (!$this->request->is('post')) {
 			throw new MethodNotAllowedException();
 		}

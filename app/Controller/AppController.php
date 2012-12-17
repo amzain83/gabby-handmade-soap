@@ -25,8 +25,9 @@ class AppController extends Controller {
 	public $helpers = array(
 		'WebTechNick.Google',
 		'Seo.Seo',
+		'Icing.FileUpload',
 		'TB' => array(
-			'className' => 'TwitterBootstrap.TwitterBootstrap'
+			'className' => 'TwitterBootstrap'
 		),
 		'Js'
 	);
