@@ -21,13 +21,28 @@
 	h2 {
 		color: #640d20;
 	}
+	
+	/*===============[ SEARCH ]==================*/
+
+	.search {
+		background: url("/img/gby-search.jpg") repeat-y 0 top;
+		margin: 0 auto;
+		width: 1100px;
+		height: 40px;
+		overflow: hidden;
+		padding-top: 18px;
+	}
+	
+	#search_advanced {
+		display: none;
+	}
 
 	/*===============[ HEADER ]==================*/
 
 	.header {
 		background: url("/img/gby-header.jpg") no-repeat 0 0;
 		width: 1100px;
-		height: 286px;
+		height: 258px;
 		margin: 0 auto;
 		position: relative;
 		cursor: pointer;
@@ -43,7 +58,7 @@
 	}
 	.body-inner {
 		background: url("/img/gby-body.jpg") no-repeat 0 top;
-		min-height: 252px;
+		min-height: 222px;
 		margin: 0 auto;
 		width: 1100px;
 		overflow: hidden;

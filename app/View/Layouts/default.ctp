@@ -38,6 +38,17 @@
 		<?php endif; ?>
 	</div>
 </div>
+
+<div class="search content">
+	<div class="span10 offset3" style="padding-left: 20px;">
+		<?php echo $this->Form->create('Search',array('url' => array('plugin' => null, 'admin' => false, 'controller' => 'items', 'action' => 'index'), 'class' => 'form-inline')); ?>
+			<input type="text" class="input-xxlarge" placeholder="Search">
+			<button type="submit" class="btn btn-success">Search</button>
+			<a href="/pages/search_help" class="btn btn-info">Help</a>
+		</form>
+	</div>
+</div>
+
 <div class="body-outer">
 	<div class="body-inner content pt30">
 		<div class="span2 offset1">
@@ -49,12 +60,6 @@
 			</ul>
 		</div>
 		<div class="span9" style="padding-left: 20px;">
-			<form class="form-inline">
-				<input type="text" class="span3" placeholder="Search">
-				<button type="submit" class="btn btn-success">Search</button>
-				<button type="submit" class="btn">Advanced</button>
-			</form>
-			<hr>
 			<div id="flash">
 				<?php echo $this->Session->flash(); ?>
 			</div>
@@ -79,7 +84,10 @@
 	</div>
 </div>
 	<?php echo $this->Html->script('/bootstrap/js/bootstrap.min.js'); ?>
-	<?php echo $this->Js->buffer("jQuery('.header').click(function(){location.href = '/'})"); ?>
+	<?php echo $this->Js->buffer("
+		jQuery('.header').click(function(){location.href = '/'});
+		jQuery('#advanced-button').click(function(){jQuery('#search_advanced').toggle(); return false;});
+	"); ?>
 	<?php echo $this->Js->writeBuffer(); ?>
 </body>
 </html>

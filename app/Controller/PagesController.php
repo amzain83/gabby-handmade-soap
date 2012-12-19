@@ -52,4 +52,8 @@ class PagesController extends AppController {
 	public function contact(){
 		$this->set('title_for_layout', 'Contact');
 	}
+	
+	public function search_help(){
+		$this->set('title_for_layout', 'Search Help');
+	}
 }

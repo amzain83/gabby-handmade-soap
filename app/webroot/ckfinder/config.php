@@ -30,13 +30,13 @@ function CheckAuthentication()
 	// user logs in your system. To be able to use session variables don't
 	// forget to add session_start() at the top of this file.
 
-	return false;
+	return isset($_COOKIE['CakeCookie']['Auth']['User']);
 }
 
 // LicenseKey : Paste your license key here. If left blank, CKFinder will be
 // fully functional, in demo mode.
-$config['LicenseName'] = '';
-$config['LicenseKey'] = '';
+$config['LicenseName'] = 'www1.healthyhearing.com';
+$config['LicenseKey'] = 'HJAY-H1HH-1H1H-51HD-5VMR-ENM8-R991';
 
 /*
  Uncomment lines below to enable PHP error reporting and displaying PHP errors.
@@ -60,7 +60,8 @@ Examples:
 
 ATTENTION: The trailing slash is required.
 */
-$baseUrl = '/ckfinder/userfiles/';
+//$baseUrl = '/ckfinder/userfiles/';
+$baseUrl = '/uploads/';
 
 /*
 $baseDir : the path to the local directory (in the server) which points to the
@@ -80,7 +81,7 @@ Examples:
 ATTENTION: The trailing slash is required.
 */
 $baseDir = resolveUrl($baseUrl);
-
+$baseDir = str_replace('/uploads/', '/app/webroot/uploads/', $baseDir);
 /*
  * ### Advanced Settings
  */

@@ -13,8 +13,9 @@
 		echo $this->TB->input('cost_dollars', array('prepend' => '$', 'class' => 'input-large'));
 		echo $this->TB->input('shipping_price_dollars', array('prepend' => '$', 'class' => 'input-large', 'default' => 0));
 		echo $this->TB->input('short_description');
-		echo $this->TB->input('description', array('class' => 'ckeditor'));
+		//echo $this->TB->input('description', array('class' => 'ckeditor'));
 	?>
+	<textarea style="width: 100%" rows="15" cols="50" id="ItemDescription" name="data[Item][description]"><?php echo $this->TB->value('Item.description') ?></textarea>
 	<?php echo $this->TB->end(__('Save Item')); ?>
 </div>
 <?php if($this->TB->value('Item.id')): ?>
@@ -25,3 +26,4 @@
 	</ul>
 </div>
 <?php endif; ?>
+<?php echo $this->Ckeditor->replace('ItemDescription'); ?>
