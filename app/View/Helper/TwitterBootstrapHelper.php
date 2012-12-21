@@ -52,6 +52,15 @@ class TwitterBootstrapHelper extends AppHelper {
 	* Wrapper for Form::end
 	*/
 	public function end($options = array()){
+		if(is_string($options)){
+			$title = $options;
+			$options = array(
+				'label' => $title,
+			);
+		}
+		$options = array_merge(array(
+			'class' => 'btn-success'
+		), $options);
 		return $this->Form->end($options);
 	}
 	

@@ -262,6 +262,10 @@ form .required label:after {
 	content: '*';
 	display:inline;
 }
+form div.submit {
+	padding: 10px;
+	text-align: center;
+}
 /** Notices and Errors **/
 .message {
 	clear: both;

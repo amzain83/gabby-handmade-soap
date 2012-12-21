@@ -1,2 +1,0 @@
-[14-Dec-2012 16:34:19] PHP Fatal error:  Call to a member function find() on a non-object in /home/webtechn/dev/gabbyshandmadesoap/app/Controller/CategoriesController.php on line 38
-[15-Dec-2012 17:33:40] PHP Fatal error:  Allowed memory size of 134217728 bytes exhausted (tried to allocate 60080 bytes) in /home/webtechn/dev/gabbyshandmadesoap/app/View/Helper/TwitterBootstrapHelper.php on line 44

@@ -2,14 +2,14 @@
 	<h2><?php echo __('Items'); ?></h2>
 	<table cellpadding="0" cellspacing="0">
 	<tr>
-		<th><?php echo $this->Paginator->sort('item_number', 'Item'); ?></th>
+		<th><?php echo $this->Paginator->sort('title', 'Item'); ?></th>
 		<th><?php echo $this->Paginator->sort('category_id', 'Cat'); ?></th>
 		<th><?php echo $this->Paginator->sort('sub_category_id', 'Sub'); ?></th>
 		<th><?php echo $this->Paginator->sort('status_id', 'Status'); ?></th>
 		<th><?php echo $this->Paginator->sort('price_dollars', 'Price'); ?></th>
 		<th><?php echo $this->Paginator->sort('qty'); ?></th>
 		<th>
-			<?php echo $this->Paginator->sort('created'); ?><br />
+			<?php echo $this->Paginator->sort('created'); ?> 
 			<?php echo $this->Paginator->sort('modified'); ?>
 		</th>
 		<th class="actions"><?php echo __('Actions'); ?></th>
@@ -17,7 +17,7 @@
 	<?php
 	foreach ($items as $item): ?>
 	<tr>
-		<td><?php echo h($item['Item']['item_number']); ?>&nbsp;</td>
+		<td><?php echo h($item['Item']['title']); ?>&nbsp;</td>
 		<td>
 			<?php echo $this->Html->link($item['Category']['name'], array('controller' => 'categories', 'action' => 'view', $item['Category']['id'])); ?>
 		</td>
@@ -30,10 +30,11 @@
 		<td><?php echo h($item['Item']['price_dollars']); ?>&nbsp;</td>
 		<td><?php echo h($item['Item']['qty']); ?>&nbsp;</td>
 		<td>
-			<?php echo h($item['Item']['created']); ?><br />
-			<?php echo h($item['Item']['modified']); ?>
+			<?php echo $this->Time->niceShort($item['Item']['created']); ?><br />
+			<?php echo $this->Time->niceShort($item['Item']['modified']); ?>
 		</td>
 		<td class="actions">
+			<?php echo $this->Html->link(__('View'), array('admin' => false, 'action' => 'view', $item['Item']['slug'])); ?>
 			<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $item['Item']['id'])); ?>
 			<?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $item['Item']['id']), null, __('Are you sure you want to delete # %s?', $item['Item']['id'])); ?>
 		</td>

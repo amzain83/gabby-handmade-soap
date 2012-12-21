@@ -47,10 +47,20 @@ class Item extends AppModel {
 				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
 		),
-		'item_number' => array(
+		'title' => array(
 			'notempty' => array(
 				'rule' => array('notempty'),
 				'message' => 'Item name required',
+			),
+		),
+		'slug' => array(
+			'notempty' => array(
+				'rule' => array('notempty'),
+				'message' => 'Slug required',
+			),
+			'isUnique' => array(
+				'rule' => array('isUnique'),
+				'message' => 'Slug must be unique.',
 			),
 		),
 		'qty' => array(
@@ -156,4 +166,60 @@ class Item extends AppModel {
 		)
 	);
 
+	/**
+	* Slug if we need it.
+	*/
+	public function beforeValidate($options = array()){
+		if(isset($this->data[$this->alias]['title']) && isset($this->data[$this->alias]['slug']) && empty($this->data[$this->alias]['slug'])){
+			$this->data[$this->alias]['slug'] = slugify($this->data[$this->alias]['title']);
+		}
+		return true;
+	}
+	
+	/**
+	* Slug by id
+	*/
+	public function slug($id = null){
+		if($id) $this->id = $id;
+		if($this->id && $this->exists()){
+			return $this->saveField('slug', slugify($this->field('title')));
+		}
+		return false;
+	}
+	/**
+	* Find the item id by slug
+	*/
+	public function findIdBySlug($slug = null){
+		return $this->field('id', array('Item.slug' => $slug));
+	}
+	/**
+	* find the item by slug this is for the view
+	* @param string slug
+	*/
+	public function findBySlug($slug = null, $show_all = false){
+		if(!$slug){
+			return false;
+		}
+		$conditions = array('Item.slug' => $slug);
+		if(!$show_all){
+			$conditions['Status.name'] = 'Available';
+		}
+		return $this->find('first', array(
+			'conditions' => $conditions
+		));
+	}
+	
+	/**
+	* Set the item status programatically
+	* @param string status (Available, Unavailable, Sold)
+	* @param int id of item to set
+	* @return boolean success
+	*/
+	public function setStatus($status, $id = null){
+		if($id) $this->id = $id;
+		if($this->exists()){
+			
+		}
+		return false;
+	}
 }

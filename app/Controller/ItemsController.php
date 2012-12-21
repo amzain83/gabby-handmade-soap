@@ -26,12 +26,13 @@ class ItemsController extends AppController {
  * @param string $id
  * @return void
  */
-	public function view($id = null) {
-		$this->Item->id = $id;
-		if (!$this->Item->exists()) {
-			throw new NotFoundException(__('Invalid item'));
+	public function view($slug = null) {
+		$item = $this->Item->findBySlug($slug, $this->isAdmin());
+		if(empty($item)){
+			$this->infoFlash("Unable to find item $slug");
+			$this->redirect(array('action' => 'index'));
 		}
-		$this->set('item', $this->Item->read(null, $id));
+		$this->set('item', $item);
 	}
 	
 	/**
@@ -52,10 +53,10 @@ class ItemsController extends AppController {
 	public function admin_edit($id = null) {
 		if ($this->request->is('post') || $this->request->is('put')) {
 			if ($this->Item->save($this->request->data)) {
-				$this->Session->setFlash(__('The item has been saved'));
+				$this->goodFlash(__('The item has been saved'));
 				$this->redirect(array('action' => 'index'));
 			} else {
-				$this->Session->setFlash(__('The item could not be saved. Please, try again.'));
+				$this->badFlash(__('The item could not be saved. Please, try again.'));
 			}
 		} elseif($id) {
 			$this->request->data = $this->Item->read(null, $id);
@@ -83,10 +84,10 @@ class ItemsController extends AppController {
 			throw new NotFoundException(__('Invalid item'));
 		}
 		if ($this->Item->delete()) {
-			$this->Session->setFlash(__('Item deleted'));
-			$this->redirect(array('action' => 'index'));
+			$this->goodFlash(__('Item deleted'));
+		} else {
+			$this->badFlash(__('Item was not deleted'));
 		}
-		$this->Session->setFlash(__('Item was not deleted'));
 		$this->redirect(array('action' => 'index'));
 	}
 }

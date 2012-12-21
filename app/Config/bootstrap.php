@@ -106,3 +106,29 @@ CakeLog::config('error', array(
 	'types' => array('warning', 'error', 'critical', 'alert', 'emergency'),
 	'file' => 'error',
 ));
+
+/**
+* slugify - makes a string a slug-friendly string
+* (lower case, only dashes, no double-dashes)
+* @param mixed $input
+* @param string $splitter
+* @return string $slugFormattedInput
+*/
+function slugify($input='', $splitter = "-") {
+	if (is_array($input)) {
+		foreach ( $input as $key => $val ) { 
+			$input[$key] = Inflector::slug(ucwords(strtolower($val)), $splitter);
+		}
+		return $input;
+	} else {
+		return Inflector::slug(ucwords(strtolower($input)), $splitter);
+	}
+}
+/**
+* Convert a slug to human readable form
+*/
+function humanize($input){
+	$input = str_replace("-","_", $input);
+	$input = strtolower($input);
+	return Inflector::humanize($input);
+}

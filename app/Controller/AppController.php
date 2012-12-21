@@ -35,6 +35,7 @@ class AppController extends Controller {
 	public function beforeFilter(){
 		$this->set('user', $this->Auth->user());
 		$this->set('cart', $this->IcingCart->get());
+		$this->set('is_admin', $this->isAdmin());
 		return parent::beforeFilter();
 	}
 	

@@ -7,7 +7,8 @@
 		echo $this->TB->input('category_id', array('append' => $this->Html->link('ADD', array('controller' => 'categories', 'action' => 'edit'))));
 		echo $this->TB->input('sub_category_id', array('append' => $this->Html->link('ADD', array('controller' => 'sub_categories', 'action' => 'edit'))));
 		echo $this->TB->input('status_id');
-		echo $this->TB->input('item_number');
+		echo $this->TB->input('title');
+		echo $this->TB->input('slug');
 		echo $this->TB->input('qty', array('label' => 'Quantity'));
 		echo $this->TB->input('price_dollars', array('prepend' => '$', 'class' => 'input-large'));
 		echo $this->TB->input('cost_dollars', array('prepend' => '$', 'class' => 'input-large'));
