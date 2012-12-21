@@ -10,6 +10,8 @@ App::uses('AppModel', 'Model');
  * @property Upload $Upload
  */
 class Item extends AppModel {
+	
+	public $searchFields = array('Item.title','Item.short_description','Item.description');
 
 /**
  * Validation rules
@@ -218,8 +220,67 @@ class Item extends AppModel {
 	public function setStatus($status, $id = null){
 		if($id) $this->id = $id;
 		if($this->exists()){
-			
+			//TODO
 		}
 		return false;
+	}
+	
+	/**
+    * Take in a search string and build the complex SQL conditions to use in pagination or 
+    * flat query
+    * 
+    * @param string search string (ie "Bracelets,Rings", "45134,J3879", etc..
+    * @param boolean exact match.  If true, do not use wildcards (%).  false by default
+    * @param boolean view_all, if true, do not filter by status => Available. false by default
+    */
+  function buildKeywordSearchConditions($search = null, $exact_match = false, $view_all = false){
+	  $wildcard = $exact_match ? '' : '%';
+	  $status = $view_all ? '%' : 'Available';
+	  $keywords = explode(',',$search);
+	  
+	  $conditions = array();
+	  foreach($keywords as $keyword){
+	    $keyword = trim($keyword);
+	    $words = explode(' ',$keyword);
+	    
+	    if(!$exact_match){
+	      $keyword = str_replace(' ', $wildcard, $keyword);
+	    }
+	    $value = $wildcard.$keyword.$wildcard;
+	    
+	    $sub_conditions = array(
+        'AND' => array(
+          'Status.name LIKE' => $status
+        ),
+        'OR' => array(
+          'Item.description LIKE' => $value,
+          'Item.price_dollars LIKE' => $value,
+          'Category.name LIKE' => $value,
+          'SubCategory.name LIKE' => $value,
+          'Item.title LIKE' => $value,
+          'Item.slug LIKE' => $value,
+          'Item.id LIKE' => $value,
+        ),
+      );
+      
+      foreach($words as $word){
+        $word = Inflector::singularize($word);
+        $space = (strtolower($word) == 'ring') ? ' ' : '';
+        $sub_conditions['OR']['AND'][] = array('Item.description LIKE' => $wildcard.$space.$word.$wildcard);
+      }
+      
+	    $conditions['OR'][] = $sub_conditions;
+	  }
+	  
+	  return $conditions;
+	}
+	
+	/**
+	* Overwrite the filter conditions to build from keywords, much more advanced.
+	* @param string filter
+	* @return array of conditions.
+	*/
+	public function generateFilterConditions($filter = null){
+		return $this->buildKeywordSearchConditions($filter);
 	}
 }

@@ -42,7 +42,7 @@
 <div class="search content">
 	<div class="span10 offset3" style="padding-left: 20px;">
 		<?php echo $this->Form->create('Search',array('url' => array('plugin' => null, 'admin' => false, 'controller' => 'items', 'action' => 'index'), 'class' => 'form-inline')); ?>
-			<input type="text" class="input-xxlarge" placeholder="Search">
+			<input type="text" name="data[Search][filter]" class="input-xxlarge" placeholder="Search">
 			<button type="submit" class="btn btn-success">Search</button>
 			<a href="/pages/search_help" class="btn btn-info">Help</a>
 		</form>

@@ -14,9 +14,21 @@ class ItemsController extends AppController {
  *
  * @return void
  */
-	public function index() {
-		$this->Item->recursive = 0;
-		$this->set('items', $this->paginate());
+	public function index($filter = null) {
+		if(isset($this->request->data['Search']['filter'])){
+			$filter = $this->request->data['Search']['filter'];
+		}
+		$this->dataToNamed();
+		$conditions = array_merge(
+      $this->Item->search($this->request->params['named']),
+      $this->Item->generateFilterConditions($filter)
+    );
+    $items = $this->paginate('Item', $conditions);
+    if($this->request->params['paging']['Item']['count'] == 1){
+    	$this->redirect(array('action' => 'view', $items[0]['Item']['slug']));
+    }
+		$this->set('items', $items);
+		$this->set('filter', $filter);
 	}
 
 /**
