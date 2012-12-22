@@ -19,7 +19,9 @@
 	?>
 </head>
 <body>
-
+<div id="loading">
+	<?php echo $this->Html->image('ajax-loader.gif'); ?>
+</div>
 <div class="header">
 	<h1 class="text-super-indent">Gabby's Handmade Soap</h1>
 	<div class="login-wrapper">

@@ -16,7 +16,7 @@
             'before' => $this->Js->get('#loading')->effect('show'), 
             'complete' => $this->Js->get('#loading')->effect('fadeOut'),
             'evalScript' => true,
-            'class' => 'add-to-cart'
+            'class' => 'btn btn-success'
           )
     );?>
 		<?php if($is_admin): ?>

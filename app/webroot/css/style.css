@@ -21,6 +21,12 @@
 	h2 {
 		color: #640d20;
 	}
+	#loading {
+		display: none;
+		position: fixed;
+		left: 50%;
+		top: 45%;
+	}
 	
 	/*===============[ SEARCH ]==================*/
 
