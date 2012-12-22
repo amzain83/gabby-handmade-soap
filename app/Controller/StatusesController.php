@@ -12,7 +12,7 @@ class StatusesController extends AppController {
  *
  * @return void
  */
-	public function index() {
+	public function admin_index() {
 		$this->Status->recursive = 0;
 		$this->set('statuses', $this->paginate());
 	}
@@ -24,29 +24,12 @@ class StatusesController extends AppController {
  * @param string $id
  * @return void
  */
-	public function view($id = null) {
+	public function admin_view($id = null) {
 		$this->Status->id = $id;
 		if (!$this->Status->exists()) {
 			throw new NotFoundException(__('Invalid status'));
 		}
 		$this->set('status', $this->Status->read(null, $id));
-	}
-
-/**
- * add method
- *
- * @return void
- */
-	public function add() {
-		if ($this->request->is('post')) {
-			$this->Status->create();
-			if ($this->Status->save($this->request->data)) {
-				$this->Session->setFlash(__('The status has been saved'));
-				$this->redirect(array('action' => 'index'));
-			} else {
-				$this->Session->setFlash(__('The status could not be saved. Please, try again.'));
-			}
-		}
 	}
 
 /**
@@ -56,7 +39,7 @@ class StatusesController extends AppController {
  * @param string $id
  * @return void
  */
-	public function edit($id = null) {
+	public function admin_edit($id = null) {
 		$this->Status->id = $id;
 		if (!$this->Status->exists()) {
 			throw new NotFoundException(__('Invalid status'));
@@ -81,7 +64,7 @@ class StatusesController extends AppController {
  * @param string $id
  * @return void
  */
-	public function delete($id = null) {
+	public function admin_delete($id = null) {
 		if (!$this->request->is('post')) {
 			throw new MethodNotAllowedException();
 		}

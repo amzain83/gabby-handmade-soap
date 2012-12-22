@@ -43,7 +43,9 @@
 		<th><?php echo __('Category Id'); ?></th>
 		<th><?php echo __('Sub Category Id'); ?></th>
 		<th><?php echo __('Status Id'); ?></th>
-		<th><?php echo __('Item Number'); ?></th>
+		<th><?php echo __('Upload Id'); ?></th>
+		<th><?php echo __('Title'); ?></th>
+		<th><?php echo __('Slug'); ?></th>
 		<th><?php echo __('Price Dollars'); ?></th>
 		<th><?php echo __('Cost Dollars'); ?></th>
 		<th><?php echo __('Qty'); ?></th>
@@ -63,7 +65,9 @@
 			<td><?php echo $item['category_id']; ?></td>
 			<td><?php echo $item['sub_category_id']; ?></td>
 			<td><?php echo $item['status_id']; ?></td>
-			<td><?php echo $item['item_number']; ?></td>
+			<td><?php echo $item['upload_id']; ?></td>
+			<td><?php echo $item['title']; ?></td>
+			<td><?php echo $item['slug']; ?></td>
 			<td><?php echo $item['price_dollars']; ?></td>
 			<td><?php echo $item['cost_dollars']; ?></td>
 			<td><?php echo $item['qty']; ?></td>
