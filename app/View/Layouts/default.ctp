@@ -5,10 +5,10 @@
 	<title>
 		Gabby's Handmande Soap :: <?php echo $title_for_layout; ?>
 	</title>
-	<link href="http://twitter.github.com/bootstrap/assets/css/bootstrap.css" rel="stylesheet">
+	<!-- <link href="http://twitter.github.com/bootstrap/assets/css/bootstrap.css" rel="stylesheet"> -->
 	<?php
 		echo $this->Html->meta('icon');
-		//echo $this->Html->css('/bootstrap/css/bootstrap.min.css');
+		echo $this->Html->css('/bootstrap/css/bootstrap.min.css');
 		echo $this->Google->load('jquery');
 		echo $this->Google->load('jqueryui');
 		echo $this->Html->css('http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/base/jquery-ui.css');
@@ -34,6 +34,7 @@
 			<div class="logged-in">
 				<a href="/account" class="btn btn-info btn-mini"><i class="icon-user icon-white"></i> <?php echo $user['email'] ?></a>
 				<a href="/logout" class="btn btn-danger btn-mini">Logout</a>
+				<?php if($is_admin): ?><a href="/admin" class="btn btn-mini">Admin</a><?php endif; ?>
 			</div>
 		<?php endif; ?>
 	</div>
@@ -52,6 +53,9 @@
 <div class="body-outer">
 	<div class="body-inner content pt30">
 		<div class="span2 offset1">
+			<div id="mini-cart">
+				
+			</div>
 			<a href="" class="btn btn-danger"><i class="icon-shopping-cart icon-white"></i> Checkout</a>
 			<ul class="nav nav-white nav-stacked nav-large mt20">
 				<li><a href="/">Home</a></li>
@@ -59,7 +63,7 @@
 				<li><a href="/contact">Contact</a></li>
 			</ul>
 		</div>
-		<div class="span9" style="padding-left: 20px;">
+		<div class="span10" style="padding-left: 10px;">
 			<div id="flash">
 				<?php echo $this->Session->flash(); ?>
 			</div>
@@ -83,11 +87,15 @@
 		</ul>
 	</div>
 </div>
-	<?php echo $this->Html->script('/bootstrap/js/bootstrap.min.js'); ?>
-	<?php echo $this->Js->buffer("
-		jQuery('.header').click(function(){location.href = '/'});
-		jQuery('#advanced-button').click(function(){jQuery('#search_advanced').toggle(); return false;});
-	"); ?>
-	<?php echo $this->Js->writeBuffer(); ?>
+<?php
+echo $this->Html->script('jquery.class');
+echo $this->Html->script('search_toggle');
+echo $this->Html->script('/bootstrap/js/bootstrap.min.js');
+echo $this->Js->buffer("
+	jQuery('.header').click(function(){location.href = '/'});
+	jQuery('#advanced-button').click(function(){jQuery('#search_advanced').toggle(); return false;});
+"); 
+echo $this->Js->writeBuffer(); 
+?>
 </body>
 </html>

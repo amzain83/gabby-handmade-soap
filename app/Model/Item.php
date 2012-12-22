@@ -131,6 +131,10 @@ class Item extends AppModel {
 			'conditions' => '',
 			'fields' => '',
 			'order' => ''
+		),
+		'Upload' => array(
+			'className' => 'Upload',
+			'foreignKey' => 'upload_id'
 		)
 	);
 
@@ -153,19 +157,6 @@ class Item extends AppModel {
 			'finderQuery' => '',
 			'counterQuery' => ''
 		),
-		'Upload' => array(
-			'className' => 'Upload',
-			'foreignKey' => 'item_id',
-			'dependent' => false,
-			'conditions' => '',
-			'fields' => '',
-			'order' => '',
-			'limit' => '',
-			'offset' => '',
-			'exclusive' => '',
-			'finderQuery' => '',
-			'counterQuery' => ''
-		)
 	);
 
 	/**
@@ -177,7 +168,17 @@ class Item extends AppModel {
 		}
 		return true;
 	}
-	
+	/**
+	* Overwrite saveAll to remove upload if we don't have one
+	* @param array data
+	* @param array options
+	*/
+	public function saveAll($data, $options = array()){
+		if(isset($data['Upload']['file']['name']) && empty($data['Upload']['file']['name'])){
+			unset($data['Upload']);
+		}
+		return parent::saveAll($data, $options);
+	}
 	/**
 	* Slug by id
 	*/
@@ -282,5 +283,23 @@ class Item extends AppModel {
 	*/
 	public function generateFilterConditions($filter = null){
 		return $this->buildKeywordSearchConditions($filter);
+	}
+	
+	/**
+	* Allow the item to be added to the cart
+	* @param mixed item
+	* @return boolean
+	*/
+	public function allowCart($item){
+		return true;
+	}
+	
+	public function itterateCart($item){
+		if(isset($item['Item']['id'])){
+			$this->id = $item['Item']['id'];
+			if($this->exists()){
+				$this->saveField('cart_count', $this->field('cart_count') + 1);
+			}
+		}
 	}
 }

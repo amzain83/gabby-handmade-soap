@@ -10,7 +10,7 @@ class CartsController extends AppController{
   
   public function beforeRender(){
     parent::beforeRender();
-    $this->set('cart', $this->Cart->get());
+    $this->set('cart', $this->IcingCart->get());
   }
   
   

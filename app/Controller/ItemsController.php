@@ -8,6 +8,17 @@ App::uses('AppController', 'Controller');
 class ItemsController extends AppController {
 	
 	public $helpers = array('WebTechNick.Ckeditor');
+	public $paginate = array(
+		'Item' => array(
+			'contain' => array(
+				'Category',
+				'SubCategory',
+				'Upload',
+				'Status'
+			),
+			'limit' => 25,
+		)
+	);
 
 /**
  * index method
@@ -64,7 +75,7 @@ class ItemsController extends AppController {
  */
 	public function admin_edit($id = null) {
 		if ($this->request->is('post') || $this->request->is('put')) {
-			if ($this->Item->save($this->request->data)) {
+			if ($this->Item->saveAll($this->request->data)) {
 				$this->goodFlash(__('The item has been saved'));
 				$this->redirect(array('action' => 'index'));
 			} else {

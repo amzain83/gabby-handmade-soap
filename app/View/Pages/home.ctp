@@ -6,7 +6,7 @@ Albuquerque, NM
 </p>
 <h3>Phone</h3>
 <p>(505) 243-7627</p>
-<ul class="inline">
+<ul class="thumbnails">
 	<?php foreach(array(
 			'2012-11-03 12.44.32.jpg',
 			'253124_285351224914252_1946428809_n.jpg', 

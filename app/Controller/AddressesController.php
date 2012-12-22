@@ -12,7 +12,7 @@ class AddressesController extends AppController {
  *
  * @return void
  */
-	public function index() {
+	public function admin_index() {
 		$this->Address->recursive = 0;
 		$this->set('addresses', $this->paginate());
 	}
@@ -24,29 +24,12 @@ class AddressesController extends AppController {
  * @param string $id
  * @return void
  */
-	public function view($id = null) {
+	public function admin_view($id = null) {
 		$this->Address->id = $id;
 		if (!$this->Address->exists()) {
 			throw new NotFoundException(__('Invalid address'));
 		}
 		$this->set('address', $this->Address->read(null, $id));
-	}
-
-/**
- * add method
- *
- * @return void
- */
-	public function add() {
-		if ($this->request->is('post')) {
-			$this->Address->create();
-			if ($this->Address->save($this->request->data)) {
-				$this->Session->setFlash(__('The address has been saved'));
-				$this->redirect(array('action' => 'index'));
-			} else {
-				$this->Session->setFlash(__('The address could not be saved. Please, try again.'));
-			}
-		}
 	}
 
 /**
@@ -56,7 +39,7 @@ class AddressesController extends AppController {
  * @param string $id
  * @return void
  */
-	public function edit($id = null) {
+	public function admin_edit($id = null) {
 		$this->Address->id = $id;
 		if (!$this->Address->exists()) {
 			throw new NotFoundException(__('Invalid address'));
@@ -81,7 +64,7 @@ class AddressesController extends AppController {
  * @param string $id
  * @return void
  */
-	public function delete($id = null) {
+	public function admin_delete($id = null) {
 		if (!$this->request->is('post')) {
 			throw new MethodNotAllowedException();
 		}

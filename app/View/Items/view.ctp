@@ -7,7 +7,18 @@
 </div>
 <div class="row">
 	<div class="span3 offset4">
-		<?php echo $this->Html->link('Add To Cart', '#', array('class' => 'btn btn-success')); ?>
+		<?php echo $this->Html->link('Add To Cart', array('controller' => 'carts', 'action' => 'add', $item['Item']['id']), array('class' => 'btn btn-success')); ?>
+		<?php echo $this->Js->link(
+          'Add to Cart',
+          array('controller' => 'carts', 'action' => 'add', $item['Item']['id']),
+          array(
+            'update' => '#mini-cart', 
+            'before' => $this->Js->get('#loading')->effect('show'), 
+            'complete' => $this->Js->get('#loading')->effect('fadeOut'),
+            'evalScript' => true,
+            'class' => 'add-to-cart'
+          )
+    );?>
 		<?php if($is_admin): ?>
 			<?php echo $this->Html->link('Edit Item', array('admin' => true, 'controller' => 'items', 'action' => 'edit', $item['Item']['id']), array('class' => 'btn btn-info')); ?>
 		<?php endif; ?>

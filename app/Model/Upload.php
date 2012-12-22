@@ -1,11 +1,13 @@
 <?php
 App::uses('AppModel', 'Model');
 /**
- * Upload Model
+ * Upload ModelItem
  *
  * @property Item $Item
  */
 class Upload extends AppModel {
+	
+	public $actsAs = array('Icing.FileUpload');
 
 /**
  * Validation rules
@@ -13,16 +15,6 @@ class Upload extends AppModel {
  * @var array
  */
 	public $validate = array(
-		'item_id' => array(
-			'numeric' => array(
-				'rule' => array('numeric'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
-			),
-		),
 		'name' => array(
 			'notempty' => array(
 				'rule' => array('notempty'),
@@ -62,13 +54,7 @@ class Upload extends AppModel {
  *
  * @var array
  */
-	public $belongsTo = array(
-		'Item' => array(
-			'className' => 'Item',
-			'foreignKey' => 'item_id',
-			'conditions' => '',
-			'fields' => '',
-			'order' => ''
-		)
+	public $hasOne = array(
+		'Item'
 	);
 }

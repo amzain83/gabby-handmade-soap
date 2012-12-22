@@ -19,8 +19,9 @@ class AppController extends Controller {
 		'DebugKit.Toolbar',
 		'Icing.IcingCart' => array(
 			'model' => 'Item',
-			'contain' => array()
-		)
+			'contain' => array('Upload.name')
+		),
+		'RequestHandler',
 	);
 	public $helpers = array(
 		'WebTechNick.Google',

@@ -1,12 +1,13 @@
 <?php echo $this->Ckeditor->load(); ?>
 <div class="items form">
 <h1>Add/Edit Item</h1>
-<?php echo $this->TB->create('Item', array('inputDefaults' => array('class' => 'input-xxlarge'))); ?>
+<?php echo $this->TB->create('Item', array('type' => 'file', 'inputDefaults' => array('class' => 'input-xxlarge'))); ?>
 	<?php
 		echo $this->TB->input('id', array('type' => 'hidden', 'label' => false));
 		echo $this->TB->input('category_id', array('append' => $this->Html->link('ADD', array('controller' => 'categories', 'action' => 'edit'))));
 		echo $this->TB->input('sub_category_id', array('append' => $this->Html->link('ADD', array('controller' => 'sub_categories', 'action' => 'edit'))));
 		echo $this->TB->input('status_id');
+		echo $this->TB->input('Upload.file', array('label' => 'Thumbnail', 'type' => 'file'));
 		echo $this->TB->input('title');
 		echo $this->TB->input('slug');
 		echo $this->TB->input('qty', array('label' => 'Quantity'));
@@ -17,6 +18,7 @@
 		//echo $this->TB->input('description', array('class' => 'ckeditor'));
 	?>
 	<textarea style="width: 100%" rows="15" cols="50" id="ItemDescription" name="data[Item][description]"><?php echo $this->TB->value('Item.description') ?></textarea>
+	<?php  ?>
 	<?php echo $this->TB->end(__('Save Item')); ?>
 </div>
 <?php if($this->TB->value('Item.id')): ?>

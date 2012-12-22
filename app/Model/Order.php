@@ -175,14 +175,14 @@ class Order extends AppModel {
 			'order' => ''
 		),
 		'BillingAddress' => array(
-			'className' => 'BillingAddress',
+			'className' => 'Address',
 			'foreignKey' => 'billing_address_id',
 			'conditions' => '',
 			'fields' => '',
 			'order' => ''
 		),
 		'ShippingAddress' => array(
-			'className' => 'ShippingAddress',
+			'className' => 'Address',
 			'foreignKey' => 'shipping_address_id',
 			'conditions' => '',
 			'fields' => '',
