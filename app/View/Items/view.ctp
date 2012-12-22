@@ -6,7 +6,8 @@
 	</div>
 </div>
 <div class="row">
-	<div class="span3 offset4">
+	<div class="span5 offset3">
+		<h3><?php echo $this->Number->currency($item['Item']['price_dollars']); ?></h3>
 		<?php echo $this->Html->link('Add To Cart', array('controller' => 'carts', 'action' => 'add', $item['Item']['id']), array('class' => 'btn btn-success')); ?>
 		<?php echo $this->Js->link(
           'Add to Cart',
