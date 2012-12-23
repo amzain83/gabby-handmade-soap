@@ -20,8 +20,11 @@ class CartsController extends AppController{
   public function index(){
   }
   
-  public function add($item_id = null, $to_order = false){
-    if($this->IcingCart->add($item_id)){
+  public function add($item_id = null, $quantity = 1, $to_order = false){
+  	if(isset($this->request->data['Cart']['quantity'])){
+  		$quantity = $this->request->data['Cart']['quantity'];
+  	}
+    if($this->IcingCart->add($item_id, $quantity)){
     	if($to_order){
     		$this->redirect(array('controller' => 'orders', 'action' => 'edit'));
     	}
