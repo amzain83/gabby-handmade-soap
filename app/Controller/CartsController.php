@@ -39,6 +39,15 @@ class CartsController extends AppController{
     }
   }
   
+  public function update_quantity($item_id, $quantity){
+  	if(!$item_id || !$quantity || !$this->IcingCart->updateQuantity($item_id, $quantity)){
+  		$this->badFlash('Unable to update cart quantity');
+  	} else {
+  		$this->goodFlash('Cart Updated Successfully.');
+  	}
+  	$this->redirect(array('action' => 'index'));
+  }
+  
   public function remove($item_id = null, $redirect = false){
   	if($this->IcingCart->remove($item_id)){
   		if($redirect){
